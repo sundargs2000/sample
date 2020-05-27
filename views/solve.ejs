@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Title Page-->
+    <title>ನೋಂದಣಿ</title>
+
+    <!-- Main CSS-->
+    <link href="css/main1.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <a href="/logout">
+            <button type="button" class="btn btn-outline-primary">Logout</button>
+        </a>
+        <div class="wrapper wrapper--w1300">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title"><%= data['title']%></h2>
+                </div>
+                <div class="form-row"></div>
+                <button class="btn1">Problem Description: <%= data['description']%></button>
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <button class="btn1"><%= data['subdomain']%></button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn1"><%= data['score']%> pts</button>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                <div>
+                    <button class="btn1">Enter solution below</button>
+                </div>
+                <form action="solve" method="POST">
+                    <div class="form-row">
+                        <div class="value">
+                            <div class="col-sm-2"></div>
+                            <div class="input-group col-sm-8">
+                                <textarea class="input--style-5" rows="4" cols="100" type="text" name="solution" placeholder="Enter Solution Here"required><%= typeof solution != 'undefined' ? solution : '' %></textarea>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-5"></div>
+                        <button value="<%=data['_id']%>" name='id' class="btn btn--radius-2 btn--red" type="submit">Submit</button>
+                    </div>
+                    <div class="form-row"></div>
+                </form>
+            </div>
+
+            <div class="card card-5">
+                    <% for(var i=0; i<stusol.length; i++) { %>
+                    <div class="form-row"></div>
+                    <div class="form-row">
+                        <div class="form-row">
+                            <button class="btn1">Your Output:</button>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <p class="btn1"><%= stusol[i]%></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                        <!-- <p><%= stusol[i]%></p> -->
+                    </div>
+                    <% } %>
+            </div>
+
+            <div class="card card-5">
+                    <% for(var i=0; i<realsol.length; i++) { %>
+                    <div class="form-row">
+                        <div class="form-row">
+                            <button class="btn1">Expected Output:</button>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <p class="btn1"><%= realsol[i]%></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                    </div>
+                        <!-- <p><%= stusol[i]%></p> -->
+                    <% } %>
+            </div>
+
+            <div>
+                <a href="/qList">
+                    <button type="button" class="btn btn-outline-primary">Go back to questions</button>
+                </a>
+            </div>
+        </div>
+        
+    </div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
