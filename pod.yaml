@@ -1,0 +1,34 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2 
+kind: Deployment 
+metadata: 
+  name: sample-deployment
+  namespace: sundar-temp
+spec: 
+  selector: 
+    matchLabels: 
+      app: sample 
+  template: 
+    metadata: 
+      labels: 
+        app: sample 
+    spec: 
+      containers: 
+      - name: sample 
+        image: tsugunt/sample:latest 
+        ports: 
+        - containerPort: 8888 
+--- 
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: sample-service
+  namespace: sundar-temp
+spec: 
+  selector: 
+    app: sample 
+  ports: 
+  - protocol: TCP 
+    port: 80 
+    targetPort: 8888
+  type: LoadBalancer 
