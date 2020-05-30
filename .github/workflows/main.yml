@@ -28,7 +28,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Docker Build
       run: |
-        docker build . -t tsugunt/sample
+        docker build . -t tsugunt/sample:v1
       # Runs a set of commands using the runners shell
     - name: Docker push
       run: |
