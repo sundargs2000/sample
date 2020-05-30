@@ -48,4 +48,5 @@ jobs:
         namespace: sundar-temp2
         manifests: |
           pod.yaml
+        images: tsugunt/sample:v${{ github.run_number }}
 
