@@ -28,11 +28,11 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Docker Build
       run: |
-        docker build . -t tsugunt/sample:v1
+        docker build . -t tsugunt/sample:v2
       # Runs a set of commands using the runners shell
     - name: Docker push
       run: |
-        docker push tsugunt/sample:v1
+        docker push tsugunt/sample:v2
         
     - uses: azure/k8s-set-context@v1
       with:
