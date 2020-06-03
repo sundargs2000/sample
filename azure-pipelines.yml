@@ -5,7 +5,7 @@ pool:
   vmImage: Ubuntu-16.04
 
 variables:
-  imageName: sample
+  imageName: tsugunt/sample
 
 steps:
 - task: Docker@2
