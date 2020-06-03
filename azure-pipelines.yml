@@ -11,7 +11,7 @@ steps:
 - task: Docker@2
   displayName: Build and push image
   inputs:
-    containerRegistry: tsugunt #replace with name of your Docker registry service connection
+    containerRegistry: docker_hub #replace with name of your Docker registry service connection
     repository: $(imageName)
     command: buildAndPush
     Dockerfile: Dockerfile
