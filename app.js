@@ -4,6 +4,7 @@ var app = express();
 const session = require('express-session');
 var mongoose = require('mongoose');
 
+
 //local strategy
 var register = require('./controllers/config/auth');
 var LocalStrategy = require('passport-local').Strategy;
