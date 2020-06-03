@@ -14,6 +14,6 @@ steps:
     containerRegistry: docker_con #replace with name of your Docker registry service connection
     repository: $(imageName)
     command: buildAndPush
-    Dockerfile: app/Dockerfile
+    Dockerfile: Dockerfile
     tags: |
       $(Build.BuildId)
