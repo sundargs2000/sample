@@ -1,0 +1,19 @@
+trigger:
+- master
+
+pool:
+  vmImage: Ubuntu-16.04
+
+variables:
+  imageName: sample
+
+steps:
+- task: Docker@2
+  displayName: Build and push image
+  inputs:
+    containerRegistry: dcoker_con #replace with name of your Docker registry service connection
+    repository: $(imageName)
+    command: buildAndPush
+    Dockerfile: app/Dockerfile
+    tags: |
+      $(Build.BuildId)
