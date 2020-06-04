@@ -36,17 +36,17 @@ jobs:
       run: |
         docker push tsugunt/sample:v${{ github.run_number }}
         
-    - uses: azure/k8s-set-context@v1
-      with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
-      id: setcontext
+#     - uses: azure/k8s-set-context@v1
+#       with:
+#         method: kubeconfig
+#         kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
+#       id: setcontext
     
-    - name: deployer
-      uses: Azure/k8s-deploy@v1
-      with:
-        namespace: sundar-temp2
-        manifests: |
-          pod.yaml
-        images: tsugunt/sample:v${{ github.run_number }}
+#     - name: deployer
+#       uses: Azure/k8s-deploy@v1
+#       with:
+#         namespace: sundar-temp2
+#         manifests: |
+#           pod.yaml
+#         images: tsugunt/sample:v${{ github.run_number }}
 
