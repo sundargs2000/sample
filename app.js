@@ -94,7 +94,7 @@ app.get('/', (req, res) => {
 
   counter.inc();
   
-  res.send('Hello world\n');
+  res.send('Hello world not\n');
 });
 
 // Metrics endpoint
