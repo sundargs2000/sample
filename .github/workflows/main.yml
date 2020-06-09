@@ -26,6 +26,5 @@ jobs:
       with:
         namespace: sundar-temp
         manifests: |
-          pod.yaml
-        images: tsugunt/sample:v1.4
+          pod.yml
 
