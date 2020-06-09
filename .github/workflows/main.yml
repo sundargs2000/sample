@@ -9,13 +9,16 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    # The type of runner that the job will run on
+    # Job name is Greeting
+    name: Deploying
+    # This job runs on Linux
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it    
-    - uses: azure/k8s-set-context@v1
+    - name: context-set
+      uses: azure/k8s-set-context@v1
       with:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
