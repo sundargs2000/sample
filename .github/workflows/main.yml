@@ -26,7 +26,7 @@ jobs:
       id: setcontext
     
     - name: deployer
-      uses: Azure/k8s-deploy@v1
+      uses: sundargs2000/k8s-deploy@master
       with:
         namespace: sundar-temp
         manifests: |
