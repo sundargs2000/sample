@@ -32,4 +32,4 @@ jobs:
         manifests: |
           pod.yaml
         strategy: blue-green
-        action: route
+        action: deploy
