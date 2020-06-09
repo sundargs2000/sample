@@ -14,37 +14,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: docker loging
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} 
-      run: |
-         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
-    - name: Output Run Number
-      run: echo ${{ github.run_number }}
-         
-    # Runs a set of commands using the runners shell
-    - name: Docker Build
-      run: |
-        docker build . -t tsugunt/sample:v1.${{ github.run_number }}
-      # Runs a set of commands using the runners shell
-    - name: Docker push
-      run: |
-        docker push tsugunt/sample:v1.${{ github.run_number }}
-        
-#     - uses: azure/k8s-set-context@v1
-#       with:
-#         method: kubeconfig
-#         kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
-#       id: setcontext
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it    
+    - uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
+      id: setcontext
     
-#     - name: deployer
-#       uses: Azure/k8s-deploy@v1
-#       with:
-#         namespace: sundar-temp2
-#         manifests: |
-#           pod.yaml
-#         images: tsugunt/sample:v1,${{ github.run_number }}
+    - name: deployer
+      uses: sundargs2000/k8s-deploy@master
+      with:
+        namespace: sundar-temp
+        manifests: |
+          pod.yaml
+        images: tsugunt/sample:v1.4
 
