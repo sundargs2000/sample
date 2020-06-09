@@ -29,5 +29,5 @@ jobs:
       with:
         namespace: sundar-temp
         manifests: |
-          pod.yml
+          ./pod.yml
 
