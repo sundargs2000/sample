@@ -31,4 +31,4 @@ jobs:
         namespace: sundar-temp
         manifests: |
           pod.yaml
-
+        strategy: blue-green
