@@ -20,6 +20,29 @@ spec:
         image: tsugunt/sample:v1.4
         ports: 
         - containerPort: 8888 
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: sample-deployment-1
+spec: 
+  replicas: 4
+  selector: 
+    matchLabels: 
+      app: sample 
+  template: 
+    metadata: 
+      labels: 
+        app: sample 
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8888"
+    spec: 
+      containers: 
+      - name: sample 
+        image: tsugunt/sample:v1.4
+        ports: 
+        - containerPort: 8888 
 --- 
 # https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
 apiVersion: v1 
