@@ -31,6 +31,6 @@ jobs:
         namespace: sundar-temp
         manifests: |
           pod.yaml
-        images: tsugunt/sample:v1.4
+        images: tsugunt/sample:v1.5
         strategy: blue-green
-        action: deploy
+        action: route
