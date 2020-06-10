@@ -35,4 +35,40 @@ spec:
     targetPort: 8888
   type: LoadBalancer 
 --- 
-
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: sample-deployment-1
+spec: 
+  replicas: 4
+  selector: 
+    matchLabels: 
+      app: sample-1 
+  template: 
+    metadata: 
+      labels: 
+        app: sample-1 
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8888"
+    spec: 
+      containers: 
+      - name: sample-1 
+        image: tsugunt/sample:v1.5
+        ports: 
+        - containerPort: 8888 
+---
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: sample-service-1
+spec: 
+  selector: 
+    app: sample-1 
+  ports: 
+  - protocol: TCP 
+    port: 80 
+    targetPort: 8888
+  type: LoadBalancer 
+--- 
