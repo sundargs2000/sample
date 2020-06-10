@@ -33,4 +33,4 @@ jobs:
           pod.yaml
         images: tsugunt/sample:v1.4
         strategy: blue-green
-        action: route
+        action: reject
