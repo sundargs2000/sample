@@ -29,7 +29,8 @@ jobs:
       uses: sundargs2000/k8s-deploy@new-updates
       with:
         namespace: sundar-temp
+        images: tsugunt/sample:v1.4
         manifests: |
           pod.yaml
         strategy: blue-green
-        action: promote
+        action: deploy
