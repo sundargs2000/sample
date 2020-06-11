@@ -33,4 +33,4 @@ jobs:
         manifests: |
           pod.yaml
         strategy: blue-green
-        action: promote
+        action: deploy
