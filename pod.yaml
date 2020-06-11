@@ -17,7 +17,7 @@ spec:
     spec: 
       containers: 
       - name: sample 
-        image: tsugunt/sample:v1.5
+        image: tsugunt/sample:v1.4
         ports: 
         - containerPort: 8888 
 ---
@@ -54,7 +54,7 @@ spec:
     spec: 
       containers: 
       - name: sample 
-        image: tsugunt/sample:v1.4
+        image: tsugunt/sample:v1.5
         ports: 
         - containerPort: 8888 
 ---
