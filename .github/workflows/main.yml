@@ -31,4 +31,6 @@ jobs:
         namespace: ingress-basic
         manifests: |
           pod.yaml
+        strategy: blue-green
+        route-type: ingress
         action: deploy
