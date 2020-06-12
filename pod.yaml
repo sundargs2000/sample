@@ -1,19 +1,22 @@
-apiVersion: apps/v1 
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2 
 kind: Deployment 
 metadata: 
   name: sample-deployment
+  namespace: ingress-basic
 spec: 
   replicas: 4
   selector: 
     matchLabels: 
-      app: sample 
+      app: sample
+      color: blue
   template: 
     metadata: 
       labels: 
-        app: sample 
+        app: sample
+        color: blue
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8888"
+         prometheus.io/scrape: "true"
+         prometheus.io/port: "8888"
     spec: 
       containers: 
       - name: sample 
@@ -21,53 +24,30 @@ spec:
         ports: 
         - containerPort: 8888 
 ---
-# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
 apiVersion: v1 
 kind: Service 
 metadata: 
   name: sample-service
+  namespace: ingress-basic
 spec: 
   selector: 
-    app: sample 
+    app: sample
+    color: blue
   ports: 
   - protocol: TCP 
     port: 80 
     targetPort: 8888
   type: LoadBalancer 
 ---
-apiVersion: apps/v1 
-kind: Deployment 
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
 metadata: 
-  name: sample-deployment-1
-spec: 
-  replicas: 4
-  selector: 
-    matchLabels: 
-      app: sample-1
-  template: 
-    metadata: 
-      labels: 
-        app: sample-1 
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8888"
-    spec: 
-      containers: 
-      - name: sample 
-        image: tsugunt/sample:v1.5
-        ports: 
-        - containerPort: 8888 
----
-# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service  
-apiVersion: v1 
-kind: Service 
-metadata: 
-  name: sample-service-1
-spec: 
-  selector: 
-    app: sample-1 
-  ports: 
-  - protocol: TCP 
-    port: 80 
-    targetPort: 8888
-  type: LoadBalancer 
+  name: sample-ingress
+  namespace: ingress-basic
+spec:
+  rules: 
+  - http:
+      paths: 
+      - backend:
+          serviceName: sample-service
+          servicePort: 80
