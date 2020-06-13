@@ -8,12 +8,10 @@ spec:
   selector: 
     matchLabels: 
       app: sample
-      color: blue
   template: 
     metadata: 
       labels: 
         app: sample
-        color: blue
       annotations:
          prometheus.io/scrape: "true"
          prometheus.io/port: "8888"
@@ -32,7 +30,6 @@ metadata:
 spec: 
   selector: 
     app: sample
-    color: blue
   ports: 
   - protocol: TCP 
     port: 80 
