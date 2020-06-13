@@ -31,7 +31,7 @@ jobs:
         namespace: ingress-basic
         manifests: |
           pod.yaml
-        images: tsugunt/sample:v1.5
+        images: tsugunt/sample:v1.4
         strategy: blue-green
         route-method: ingress
         action: deploy
