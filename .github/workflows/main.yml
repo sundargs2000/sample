@@ -33,5 +33,5 @@ jobs:
           pod.yaml
         images: tsugunt/sample:v1.4
         strategy: blue-green
-        route-method: ingress
-        action: reject
+#         route-method: ingress
+        action: deploy
