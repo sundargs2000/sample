@@ -37,4 +37,4 @@ jobs:
         percentage: 50
         baseline-and-canary-replicas: 1
 #         route-method: ingress
-        action: deploy
+        action: promote
