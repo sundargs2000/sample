@@ -31,7 +31,7 @@ jobs:
         namespace: smi-demo
 #         images: tsugunt/sample:v1.4
         manifests: |
-          pod.yaml
+          pod1.yaml
         strategy: blue-green
         route-method: smi
         action: deploy
