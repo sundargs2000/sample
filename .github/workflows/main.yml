@@ -30,10 +30,7 @@ jobs:
       with:
         namespace: smi-demo
         manifests: |
-          pod1.yaml
-        strategy: canary
-        traffic-split-method: smi
-        percentage: 50
-        baseline-and-canary-replicas: 1
-#         route-method: ingress
+          pod.yaml
+        strategy: blue-green
+        route-method: ingress
         action: deploy
