@@ -27,7 +27,6 @@ metadata:
   name: reviews
   labels:
     app: reviews
-    service: reviews
 spec:
   ports:
   - port: 9080
