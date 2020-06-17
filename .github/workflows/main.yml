@@ -31,10 +31,9 @@ jobs:
         namespace: smi-demo
         manifests: |
           pod1.yaml
-        images: istio/examples-bookinfo-reviews-v2:1.10.1
         strategy: canary
         traffic-split-method: smi
         percentage: 50
         baseline-and-canary-replicas: 1
 #         route-method: ingress
-        action: promote
+        action: deploy
