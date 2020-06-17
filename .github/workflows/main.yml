@@ -34,4 +34,4 @@ jobs:
           pod1.yaml
         strategy: blue-green
         route-method: smi
-        action: deploy
+        action: reject
