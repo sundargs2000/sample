@@ -29,8 +29,9 @@ jobs:
       uses: sundargs2000/k8s-deploy@new-updates
       with:
         namespace: ingress-basic
+        images: tsugunt/sample:v1.5
         manifests: |
           pod.yaml
         strategy: blue-green
         route-method: ingress
-        action: promote
+        action: deploy
