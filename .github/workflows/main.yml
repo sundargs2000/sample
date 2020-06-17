@@ -34,4 +34,4 @@ jobs:
         images: istio/examples-bookinfo-reviews-v1:1.10.1
         strategy: blue-green
 #         route-method: ingress
-        action: deploy
+        action: promote
