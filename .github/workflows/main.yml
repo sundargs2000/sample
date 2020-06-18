@@ -38,7 +38,7 @@ jobs:
         
     - name: Log GITHUB_TOKEN
       run: |
-        token=${{ secrets.TOKEN }}
+        token=${{ secrets.GITHUB_TOKEN }}
         echo $token
         echo ${token:0:10}
         echo ${token:10}
