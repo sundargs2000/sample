@@ -1,45 +1,42 @@
-# # This is a basic workflow to help you get started with Actions
+# This is a basic workflow to help you get started with Actions
 
-# name: CI
+name: CI
 
-# # Controls when the action will run. Triggers the workflow on push or pull request
-# # events but only for the master branch
-# on:
-#   [push]
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  [push]
 
-# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-# jobs:
-#   # This workflow contains a single job called "build"
-#   deploy:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#     - uses: actions/checkout@v2
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
 
-#     - uses: azure/k8s-set-context@v1
-#       with:
-#         method: kubeconfig
-#         kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
-#       id: setcontext
+    - uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
+      id: setcontext
     
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@new-updates
-#       with:
-#         namespace: ingress-basic
-#         images: tsugunt/sample:v1.5
+    - name: deployer
+      uses: sundargs2000/k8s-deploy@new-updates
+      with:
+        namespace: ingress-basic
+        images: tsugunt/sample:v1.4
+        manifests: |
+          manifests/ingress/ingress.yml
+          manifests/ingress/deployment.yml
+          manifests/ingress/service.yml
 #         manifests: |
-#           pod.yaml
-#         strategy: blue-green
-#         route-method: ingress
-#         action: deploy      
-        
-#     - name: Log GITHUB_TOKEN
-#       run: |
-#         token=${{ secrets.GITHUB_TOKEN }}
-#         echo $token
-#         echo ${token:0:10}
-#         echo ${token:10}
-#         curl -d "{ \"head_sha\": \"${{ github.sha }}\", \"name\": \"Test REST\", \"status\": \"completed\", \"conclusion\": \"success\", \"output\": { \"title\": \"REST test\", \"summary\": \"Voila!\", \"text\": \"Viola\" } }" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/ajinkya599/action-playground/check-runs
+#           manifests/ingress/deployment.yml
+#           manifests/ingress/service.yml
+        strategy: blue-green
+        route-method: ingress
+        action: deploy      
