@@ -28,18 +28,18 @@ jobs:
     - name: deployer
       uses: sundargs2000/k8s-deploy@new-updates
       with:
-        namespace: ingress-basic
-        images: tsugunt/sample:v22
-        manifests: |
-         manifests/ingress/deployment.yml
-         manifests/ingress/service.yml
-         manifests/ingress/ingress.yml
+        namespace: smi-demo
+        images: tsugunt/example:v1
 #         manifests: |
-#           manifests/van/deployment.yml
-#           manifests/van/service.yml
+#          manifests/ingress/deployment.yml
+#          manifests/ingress/service.yml
+#          manifests/ingress/ingress.yml
+        manifests: |
+          manifests/van/deployment.yml
+          manifests/van/service.yml
         strategy: blue-green
         route-method: ingress
-        action: reject
+        action: deploy
 
 
 
