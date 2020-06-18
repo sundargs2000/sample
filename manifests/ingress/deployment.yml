@@ -1,0 +1,22 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2 
+kind: Deployment 
+metadata: 
+  name: sample-deployment
+spec: 
+  replicas: 4
+  selector: 
+    matchLabels: 
+      app: sample
+  template: 
+    metadata: 
+      labels: 
+        app: sample
+      annotations:
+         prometheus.io/scrape: "true"
+         prometheus.io/port: "8888"
+    spec: 
+      containers: 
+      - name: sample 
+        image: tsugunt/sample
+        ports: 
+        - containerPort: 8888 
