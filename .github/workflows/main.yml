@@ -28,10 +28,10 @@ jobs:
     - name: deployer
       uses: sundargs2000/k8s-deploy@new-updates
       with:
-        namespace: ingress-basic
-        images: tsugunt/sample:v1.5
+        namespace: smi-demo
+        images: tsugunt/example:v1
         manifests: |
           pod.yaml
         strategy: blue-green
-        route-method: smi
+        route-method: service
         action: deploy
