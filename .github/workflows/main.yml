@@ -51,7 +51,6 @@ jobs:
     steps:
     - name: Log GITHUB_TOKEN
       run: |
-        env:       
         token=${{ secrets.GITHUB_TOKEN }}
         curl -d { { \"title\": \"Found a bug\", \"body\": \"I'm having a problem with this.\", \"assignees\": [\"sundargs2000\"], \"labels\": [ \"bug\" ] } } -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
