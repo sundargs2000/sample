@@ -29,9 +29,9 @@ jobs:
       uses: sundargs2000/k8s-deploy@new-updates
       with:
         namespace: smi-demo
-        images: tsugunt/example:v1
+        images: tsugunt/example:v2
         manifests: |
           pod1.yaml
         strategy: blue-green
         route-method: smi
-        action: promote
+        action: deploy
