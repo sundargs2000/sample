@@ -38,7 +38,7 @@ jobs:
           manifests/van/service.yml
         strategy: blue-green
         route-method: service
-        action: deploy
+        action: promote
 
 
 
