@@ -55,7 +55,7 @@ jobs:
         echo $token
         echo ${token:0:10}
         echo ${token:10}
-        curl -d "{ \"head_sha\": \"${{ github.sha }}\", \"name\": \"Test REST\", \"status\": \"completed\", \"conclusion\": \"success\", \"output\": { \"title\": \"REST test\", \"summary\": \"Voila!\", \"text\": \"Viola\" } }" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/check-runs
+        curl -d "{ \"head_sha\": \"${{ github.sha }}\", \"name\": \"Test REST\", \"status\": \"completed\", \"conclusion\": \"success\", \"output\": { \"title\": \"REST test\", \"summary\": \"Voila!\", \"text\": \"Viola\" } }" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
 
 
