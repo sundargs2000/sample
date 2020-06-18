@@ -38,8 +38,8 @@ jobs:
           manifests/van/deployment.yml
           manifests/van/service.yml
         strategy: blue-green
-        route-method: ingress
-        action: reject
+        route-method: service
+        action: deploy
 
 
 
