@@ -48,7 +48,7 @@ jobs:
          manifests/ingress/ingress.yml
         strategy: blue-green
         route-method: ingress
-        action: deploy
+        action: reject
 
 
 
