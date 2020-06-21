@@ -60,7 +60,7 @@ jobs:
         strategy: blue-green
         route-method: service
         version-switch-buffer: 1
-        action: deploy
+        action: promote
 
 
 
