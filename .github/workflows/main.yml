@@ -32,7 +32,7 @@ jobs:
         manifests: |
           pod.yml
         strategy: blue-green
-        route-method: smi
+        route-method: service
         action: deploy
 #     #service
 #     - name: deployer
