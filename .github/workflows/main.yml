@@ -51,7 +51,7 @@ jobs:
         strategy: blue-green
         route-method: ingress
         version-switch-buffer: 1
-        action: deploy
+        action: reject
 
 
 
