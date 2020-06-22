@@ -6,7 +6,7 @@ on:
 
 jobs:
   promote:
-#     if: github.event.label.name == 'promote-bg':
+    if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
     steps:
     - name: Print a greeting
