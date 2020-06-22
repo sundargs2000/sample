@@ -39,7 +39,7 @@ jobs:
         
     #ingress
     - name: deployer
-      uses: sundargs2000/k8s-deploy@new-updates
+      uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: ingress-basic
         images: tsugunt/sample:v2.4
