@@ -18,4 +18,4 @@ jobs:
     steps:
     - name: Printing reject
       run: |
-        echo github.event.issue.labels
+        echo time  to reject
