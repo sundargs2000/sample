@@ -3,6 +3,12 @@ on:
     types: [labeled]
 name: promote-reject-bg
 jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: printing event
+        run: |
+          echo ${{github.event}}
   promote:
     if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
