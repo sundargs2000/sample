@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: printing event
         run: |
-          echo ${{github.event.repository.issue_events_url}}
+          curl https://api.github.com/repos/sundargs2000/sample/issues/12/labels
   promote:
     if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
