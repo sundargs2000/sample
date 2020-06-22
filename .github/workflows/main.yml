@@ -35,7 +35,7 @@ jobs:
           manifests/van/service.yml
         strategy: blue-green
         route-method: smi
-        action: deploy
+        action: promote
         
     #ingress
 #     - name: deployer
