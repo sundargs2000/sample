@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: printing event
-        env:
-          var1: ${{github.event.issue.url}}
-          var2: "/labels"
         run: |
           echo ${{github.event.issue.labels[0].name}}
   promote:
@@ -31,12 +28,10 @@ jobs:
       id: setcontext
     
     - name: k8-deployer
-      env:
-        image: ${{github.event.issue.labels[0].name}} 
       uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: voting
-        images: $image
+        images: ${{github.event.issue.labels[0].name}}
         manifests: |
           pod.yml
         strategy: blue-green
@@ -62,12 +57,10 @@ jobs:
       id: setcontext
     
     - name: k8-deployer
-      env:
-        image: ${{github.event.issue.labels[0].name}} 
       uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: voting
-        images: $image
+        images: ${{github.event.issue.labels[0].name}}
         manifests: |
           pod.yml
         strategy: blue-green
