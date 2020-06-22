@@ -33,7 +33,7 @@ jobs:
     - name: k8-deployer
       env:
         image: ${{github.event.issue.labels[0].name}} 
-      uses: sundargs2000/k8s-deploy@new-updates
+      uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: voting
         images: $image
@@ -64,7 +64,7 @@ jobs:
     - name: k8-deployer
       env:
         image: ${{github.event.issue.labels[0].name}} 
-      uses: sundargs2000/k8s-deploy@new-updates
+      uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: voting
         images: $image
