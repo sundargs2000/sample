@@ -16,4 +16,4 @@ jobs:
     steps:
     - name: Printing reject
       run: |
-        echo github.event.issue.labels
+        echo $github.event.issue.labels
