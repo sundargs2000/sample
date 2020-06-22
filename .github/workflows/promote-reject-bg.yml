@@ -19,6 +19,30 @@ jobs:
     - name: Printing promote
       run: |
         echo time to promote  
+    
+    - env:
+        image: ${{github.event.issue.labels[0].name}} 
+
+    - name: checkout 
+      uses: actions/checkout@v2
+
+    - name: k8-setup
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} 
+      id: setcontext
+    
+    - name: k8-deployer
+      uses: sundargs2000/k8s-deploy@new-updates
+      with:
+        namespace: voting
+        images: $image
+        manifests: |
+          pod.yml
+        strategy: blue-green
+        route-method: smi
+        action: promote
   reject:
     if: github.event.issue.title == 'reject-bg'
     runs-on: ubuntu-latest
@@ -26,3 +50,27 @@ jobs:
     - name: Printing reject
       run: |
         echo time to reject
+    
+    - env:
+        image: ${{github.event.issue.labels[0].name}} 
+
+    - name: checkout 
+      uses: actions/checkout@v2
+
+    - name: k8-setup
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} 
+      id: setcontext
+    
+    - name: k8-deployer
+      uses: sundargs2000/k8s-deploy@new-updates
+      with:
+        namespace: voting
+        images: $image
+        manifests: |
+          pod.yml
+        strategy: blue-green
+        route-method: smi
+        action: reject
