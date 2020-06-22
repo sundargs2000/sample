@@ -11,7 +11,7 @@ jobs:
           var1: ${{github.event.issue.url}}
           var2: "/labels"
         run: |
-          echo ${{github.event.issue.labels}}[0]
+          echo ${{github.event.issue.labels[0]}}
   promote:
     if: github.event.issue.title == 'promote-bg'
     runs-on: ubuntu-latest
