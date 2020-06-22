@@ -1,9 +1,7 @@
 name: promote-bg
-
 on:
   issues:
     types: [labeled]
-
 jobs:
   promote:
     if: github.event.label.name == 'promote-bg'
