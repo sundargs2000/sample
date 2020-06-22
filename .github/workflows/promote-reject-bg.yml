@@ -19,10 +19,7 @@ jobs:
     - name: Printing promote
       run: |
         echo time to promote  
-    
-    - env:
-        image: ${{github.event.issue.labels[0].name}} 
-
+        
     - name: checkout 
       uses: actions/checkout@v2
 
@@ -34,6 +31,8 @@ jobs:
       id: setcontext
     
     - name: k8-deployer
+      env:
+        image: ${{github.event.issue.labels[0].name}} 
       uses: sundargs2000/k8s-deploy@new-updates
       with:
         namespace: voting
@@ -43,6 +42,7 @@ jobs:
         strategy: blue-green
         route-method: smi
         action: promote
+        
   reject:
     if: github.event.issue.title == 'reject-bg'
     runs-on: ubuntu-latest
@@ -51,9 +51,6 @@ jobs:
       run: |
         echo time to reject
     
-    - env:
-        image: ${{github.event.issue.labels[0].name}} 
-
     - name: checkout 
       uses: actions/checkout@v2
 
@@ -65,6 +62,8 @@ jobs:
       id: setcontext
     
     - name: k8-deployer
+      env:
+        image: ${{github.event.issue.labels[0].name}} 
       uses: sundargs2000/k8s-deploy@new-updates
       with:
         namespace: voting
