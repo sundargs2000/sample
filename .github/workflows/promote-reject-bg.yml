@@ -1,6 +1,6 @@
 on:
   issues:
-    types: [labeled]
+    types: [edited]
 name: promote-reject-bg
 jobs:
   log:
@@ -8,16 +8,19 @@ jobs:
     steps:
       - name: printing event
         run: |
-          curl https://api.github.com/repos/sundargs2000/sample/issues/12/labels
+          var1 = ${{github.event.issue.url}}
+          var2 = "/labels"
+          var3 = $var1$var2 
+          echo "$var3"
   promote:
-    if: github.event.label.name == 'promote-bg'
+    if: github.event.issue.title == 'promote-bg'
     runs-on: ubuntu-latest
     steps:
     - name: Printing promote
       run: |
         echo time to promote  
   reject:
-    if: github.event.label.name == 'reject-bg'
+    if: github.event.issue.title == 'reject-bg'
     runs-on: ubuntu-latest
     steps:
     - name: Printing reject
