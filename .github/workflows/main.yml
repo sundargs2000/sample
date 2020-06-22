@@ -42,15 +42,14 @@ jobs:
       uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: ingress-basic
-        images: tsugunt/sample:v2.4
+        images: tsugunt/sample:v2.2
         manifests: |
          manifests/ingress/deployment.yml
          manifests/ingress/service.yml
          manifests/ingress/ingress.yml
         strategy: blue-green
         route-method: ingress
-        version-switch-buffer: 1
-        action: promote
+        action: deploy
 
 # #     service
 #     - name: deployer
