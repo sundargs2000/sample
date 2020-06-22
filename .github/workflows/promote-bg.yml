@@ -9,6 +9,13 @@ jobs:
     if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
     steps:
-    - name: Print a greeting
+    - name: Printing promote
       run: |
-        echo shit works
+        echo time to promote  
+  reject:
+    if: github.event.label.name == 'reject-bg'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Printing reject
+      run: |
+        echo time to reject
