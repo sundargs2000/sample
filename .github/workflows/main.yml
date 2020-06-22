@@ -1,43 +1,62 @@
-# # This is a basic workflow to help you get started with Actions
+name: CI
+on:
+  [push]
 
-# name: CI
+jobs:
+  deploy:
+    env:
+      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0 
+    runs-on: ubuntu-latest
 
-# # Controls when the action will run. Triggers the workflow on push or pull request
-# # events but only for the master branch
-# on:
-#   [push]
+    steps:
 
-# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-# jobs:
-#   # This workflow contains a single job called "build"
-#   deploy:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+    - name: checkout 
+      uses: actions/checkout@v2
 
-#     # Steps represent a sequence of tasks that will be executed as part of the job
-#     steps:
-#     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#     - uses: actions/checkout@v2
+    - name: k8-setup
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} 
+      id: setcontext
+    
+    - name: k8-deployer
+      uses: sundargs2000/k8s-deploy@reviews
+      with:
+        namespace: voting
+        images: ${{dock_image}}
+        manifests: |
+          pod.yml
+        strategy: blue-green
+        route-method: smi
+        action: reject
+    
+    - name: Log GITHUB_TOKEN
+      run: |
+        token=${{ secrets.GITHUB_TOKEN }}
+        curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [${{dock_image}}] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
-#     - uses: azure/k8s-set-context@v1
+
+
+
+
+
+
+
+#     service
+#     - name: deployer
+#       uses: sundargs2000/k8s-deploy@reviews
 #       with:
-#         method: kubeconfig
-#         kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
-#       id: setcontext
-# #     service
-# #     - name: deployer
-# #       uses: sundargs2000/k8s-deploy@reviews
-# #       with:
-# #         namespace: smi-demo
-# #         images: tsugunt/example:v1
-# #         manifests: |
-# #           manifests/van/deployment.yml
-# #           manifests/van/service.yml
-# #         strategy: blue-green
-# #         route-method: smi
-# #         action: reject
+#         namespace: smi-demo
+#         images: tsugunt/example:v1
+#         manifests: |
+#           manifests/van/deployment.yml
+#           manifests/van/service.yml
+#         strategy: blue-green
+#         route-method: smi
+#         action: reject
         
-#     #ingress
+    #ingress
 #     - name: deployer
 #       uses: sundargs2000/k8s-deploy@reviews
 #       with:
@@ -50,34 +69,4 @@
 #         strategy: blue-green
 #         route-method: ingress
 #         action: reject
-
-# # #     service
-# #     - name: deployer
-# #       uses: sundargs2000/k8s-deploy@new-updates
-# #       with:
-# #         namespace: voting
-# #         images: mcr.microsoft.com/aks/samples/voting/analytics:1.1
-# #         manifests: |
-# #           pod.yml
-# #         strategy: blue-green
-# #         route-method: smi
-# #         action: reject
-
-
-
-# on: [push]
-# name: Create an issue on push
-# jobs:
-#   stuff:
-#     runs-on: ubuntu-latest
-    
-#     steps:
-#     - name: Log GITHUB_TOKEN
-#       env:
-#         docker_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
-#       run: |
-#         token=${{ secrets.GITHUB_TOKEN }}
-#         curl -d '{"title": "Action needed", "body": "Label promote-bg or reject-bg", "labels": ["mcr.microsoft.com/aks/samples/voting/analytics:1.0"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
-
-
 
