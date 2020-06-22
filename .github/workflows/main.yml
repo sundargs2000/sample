@@ -3,11 +3,10 @@ on:
   [push]
 
 jobs:
-  deploy:
-    env:
-      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0 
+  deploy: 
     runs-on: ubuntu-latest
-
+    env:
+      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
     steps:
 
     - name: checkout 
