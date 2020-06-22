@@ -1,7 +1,7 @@
-name: promote-bg
 on:
   issues:
     types: [labeled]
+name: promote-reject-bg
 jobs:
   promote:
     if: github.event.label.name == 'promote-bg'
