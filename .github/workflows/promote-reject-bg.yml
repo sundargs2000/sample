@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: printing event
         run: |
-          echo ${{github.event}}
+          echo ${{github.event.label}}
   promote:
     if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
@@ -22,4 +22,4 @@ jobs:
     steps:
     - name: Printing reject
       run: |
-        echo $github.event.issue.labels
+        echo time to reject
