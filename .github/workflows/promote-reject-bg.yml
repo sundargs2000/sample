@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: printing event
         run: |
-          echo ${{github.event.issue.labels[0].name}}
+          echo ${{github.event.label.name}}
   promote:
     if: github.event.issue.title == 'promote-bg'
     runs-on: ubuntu-latest
