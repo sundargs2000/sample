@@ -11,7 +11,7 @@ jobs:
         run: |
           echo ${{github.event.label.name}}
   promote:
-    if: github.event.issue.title == 'promote-bg'
+    if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
     steps:
     - name: Printing promote
@@ -40,7 +40,7 @@ jobs:
         action: promote
         
   reject:
-    if: github.event.issue.title == 'reject-bg'
+    if: github.event.label.name == 'reject-bg'
     runs-on: ubuntu-latest
     steps:
     - name: Printing reject
