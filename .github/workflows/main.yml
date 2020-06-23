@@ -28,7 +28,7 @@ jobs:
           pod.yml
         strategy: blue-green
         route-method: smi
-        action: deploy
+        action: promote
     
     - name: Log GITHUB_TOKEN
       run: |
