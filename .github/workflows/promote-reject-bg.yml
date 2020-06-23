@@ -11,7 +11,6 @@ jobs:
         run: |
           echo ${{github.event.label.name}}
   promote-reject:
-    if: github.event.label.name == 'promote-bg'
     runs-on: ubuntu-latest
     steps:
     - name: Printing promote
