@@ -6,7 +6,7 @@ jobs:
   deploy: 
     runs-on: ubuntu-latest
     env:
-      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
+      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.1
     steps:
 #
     - name: checkout 
@@ -28,7 +28,7 @@ jobs:
           pod.yml
         strategy: blue-green
         route-method: smi
-        action: promote
+        action: deploy
     
     - name: Log GITHUB_TOKEN
       run: |
