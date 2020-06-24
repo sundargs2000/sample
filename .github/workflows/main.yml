@@ -6,9 +6,11 @@ jobs:
   deploy: 
     runs-on: ubuntu-latest
     env:
-      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.1
+      kube_ns: voting
+      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
+      route_method: smi
     steps:
-#
+
     - name: checkout 
       uses: actions/checkout@v2
 
@@ -22,18 +24,18 @@ jobs:
     - name: k8-deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
-        namespace: voting
+        namespace: ${{env.kube_ns}}
         images: ${{env.dock_image}}
         manifests: |
           pod.yml
         strategy: blue-green
-        route-method: smi
+        route-method: ${{env.route_method}}
         action: deploy
     
     - name: Log GITHUB_TOKEN
       run: |
         token=${{ secrets.GITHUB_TOKEN }}
-        curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": ["${{env.dock_image}}"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
+        curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.kube_ns}}", "${{env.dock_image}}", "${{env.route_method}}"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
 
 
