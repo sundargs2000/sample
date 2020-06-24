@@ -23,14 +23,14 @@ jobs:
       uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: ingress-basic
-        images: tsugunt/sample:v22
+        images: tsugunt/sample:v2.4
         manifests: |
          manifests/ingress/deployment.yml
          manifests/ingress/service.yml
          manifests/ingress/ingress.yml
         strategy: blue-green
         route-method: ingress
-        action: reject
+        action: deploy
 #     - name: k8-deployer
 #       uses: sundargs2000/k8s-deploy@reviews
 #       with:
