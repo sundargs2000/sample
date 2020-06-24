@@ -30,7 +30,7 @@ jobs:
          manifests/ingress/ingress.yml
         strategy: blue-green
         route-method: ingress
-        action: deploy
+        action: reject
 #     - name: k8-deployer
 #       uses: sundargs2000/k8s-deploy@reviews
 #       with:
