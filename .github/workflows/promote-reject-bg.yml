@@ -30,11 +30,11 @@ jobs:
     - name: k8-deployer-${{github.event.label.name}}
       uses: sundargs2000/k8s-deploy@reviews
       with:
-        namespace: voting
-        images: ${{github.event.issue.labels[0].name}}
+        namespace: ${{github.event.issue.labels[0].name}}
+        images: ${{github.event.issue.labels[1].name}}
         manifests: |
           pod.yml
         strategy: blue-green
-        route-method: smi
+        route-method: ${{github.event.issue.labels[2].name}}
         action: ${{github.event.label.name}}
         
