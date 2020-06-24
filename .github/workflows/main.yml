@@ -18,22 +18,34 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }} 
       id: setcontext
-    
-    - name: k8-deployer
+        #ingress
+    - name: deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
-        namespace: voting
-        images: ${{env.dock_image}}
+        namespace: ingress-basic
+        images: tsugunt/sample:v22
         manifests: |
-          pod.yml
+         manifests/ingress/deployment.yml
+         manifests/ingress/service.yml
+         manifests/ingress/ingress.yml
         strategy: blue-green
-        route-method: smi
-        action: deploy
+        route-method: ingress
+        action: reject
+#     - name: k8-deployer
+#       uses: sundargs2000/k8s-deploy@reviews
+#       with:
+#         namespace: voting
+#         images: ${{env.dock_image}}
+#         manifests: |
+#           pod.yml
+#         strategy: blue-green
+#         route-method: smi
+#         action: deploy
     
-    - name: Log GITHUB_TOKEN
-      run: |
-        token=${{ secrets.GITHUB_TOKEN }}
-        curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
+#     - name: Log GITHUB_TOKEN
+#       run: |
+#         token=${{ secrets.GITHUB_TOKEN }}
+#         curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
 
 
