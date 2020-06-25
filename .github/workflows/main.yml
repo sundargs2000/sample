@@ -6,7 +6,7 @@ jobs:
   deploy: 
     runs-on: ubuntu-latest
     env:
-      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.1
+      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
     steps:
 
     - name: checkout 
@@ -30,7 +30,7 @@ jobs:
         route-method: smi
         action: deploy
     
-    - name: Log GITHUB_TOKEN
+    - name: Create an issue
       run: |
         token=${{ secrets.GITHUB_TOKEN }}
         curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
