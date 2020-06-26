@@ -6,8 +6,9 @@ jobs:
   deploy: 
     runs-on: ubuntu-latest
     env:
-      dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
-      kube_ns: voting
+      dock_image: tsugunt/example:v1
+      kube_ns: smi-demo
+
     steps:
 
     - name: checkout 
@@ -26,9 +27,10 @@ jobs:
         namespace: ${{env.kube_ns}}
         images: ${{env.dock_image}}
         manifests: |
-          pod.yml
+          manifests/van/deployment.yml
+          manifests/van/service.yml
         strategy: blue-green
-        route-method: smi
+        route-method: service
         action: deploy
     
     - name: Create an issue
