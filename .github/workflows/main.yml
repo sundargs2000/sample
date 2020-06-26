@@ -17,7 +17,7 @@ jobs:
         kubeconfig: ${{ secrets.KUBE_CONFIG }} 
       id: setcontext
       
-      #     service
+#           service
     - name: deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
