@@ -27,13 +27,13 @@ jobs:
         manifests: |
           pod.yml
         strategy: blue-green
-        route-method: smi
+        route-method: service
         action: deploy
     
-    - name: Create an issue
-      run: |
-        token=${{ secrets.GITHUB_TOKEN }}
-        curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
+#     - name: Create an issue
+#       run: |
+#         token=${{ secrets.GITHUB_TOKEN }}
+#         curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
 
 
