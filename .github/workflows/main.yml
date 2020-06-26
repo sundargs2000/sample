@@ -54,7 +54,7 @@ jobs:
          manifests/ingress/ingress.yml
         strategy: blue-green
         route-method: ingress
-        action: reject
+        action: promote
 
 #     env:
 #       dock_image: tsugunt/example:v1
