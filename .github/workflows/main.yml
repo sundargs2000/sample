@@ -30,31 +30,31 @@ jobs:
 #         route-method: service
 #         action: reject
   
-#         #smi  
-#     - name: k8-deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: voting
-#         images: mcr.microsoft.com/aks/samples/voting/analytics:1.1
-#         manifests: |
-#           pod.yml
-#         strategy: blue-green
-#         route-method: smi
-#         action: reject
-    
-    #  ingress
-    - name: deployer
+        #smi  
+    - name: k8-deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
-        namespace: ingress-basic
-        images: tsugunt/sample:v22
+        namespace: voting
+        images: mcr.microsoft.com/aks/samples/voting/analytics:1.1
         manifests: |
-         manifests/ingress/deployment.yml
-         manifests/ingress/service.yml
-         manifests/ingress/ingress.yml
+          pod.yml
         strategy: blue-green
-        route-method: ingress
-        action: reject
+        route-method: smi
+        action: deploy
+    
+#     #  ingress
+#     - name: deployer
+#       uses: sundargs2000/k8s-deploy@reviews
+#       with:
+#         namespace: ingress-basic
+#         images: tsugunt/sample:v22
+#         manifests: |
+#          manifests/ingress/deployment.yml
+#          manifests/ingress/service.yml
+#          manifests/ingress/ingress.yml
+#         strategy: blue-green
+#         route-method: ingress
+#         action: reject
 
 #     env:
 #       dock_image: tsugunt/example:v1
