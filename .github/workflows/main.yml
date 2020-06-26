@@ -42,7 +42,7 @@ jobs:
 #         route-method: smi
 #         action: reject
     
-#       ingress
+    #  ingress
     - name: deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
