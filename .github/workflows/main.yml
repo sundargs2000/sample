@@ -5,12 +5,8 @@ on:
 jobs:
   deploy: 
     runs-on: ubuntu-latest
-    env:
-      dock_image: tsugunt/example:v1
-      kube_ns: smi-demo
 
     steps:
-
     - name: checkout 
       uses: actions/checkout@v2
 
@@ -20,23 +16,33 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }} 
       id: setcontext
-
-    - name: k8-deployer
+      
+      #     service
+    - name: deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
-        namespace: ${{env.kube_ns}}
-        images: ${{env.dock_image}}
+        namespace: smi-demo
+        images: tsugunt/example:v1
         manifests: |
           manifests/van/deployment.yml
           manifests/van/service.yml
         strategy: blue-green
         route-method: service
-        action: deploy
+        action: promote
+  
+  
+  
+#     - name: k8-deployer
+#       uses: sundargs2000/k8s-deploy@reviews
+#       with:
+#         namespace: voting
+#         images: mcr.microsoft.com/aks/samples/voting/analytics:1.0
+#         manifests: |
+#           pod.yml
+#         strategy: blue-green
+#         route-method: smi
+#         action: deploy
     
-    - name: Create an issue
-      run: |
-        token=${{ secrets.GITHUB_TOKEN }}
-        curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}",  "${{env.kube_ns}}"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
 
 
 
@@ -56,31 +62,11 @@ jobs:
 #         route-method: ingress
 #         action: deploy
 
+#     env:
+#       dock_image: tsugunt/example:v1
+#       kube_ns: smi-demo
 
-#     service
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: smi-demo
-#         images: tsugunt/example:v1
-#         manifests: |
-#           manifests/van/deployment.yml
-#           manifests/van/service.yml
-#         strategy: blue-green
-#         route-method: smi
-#         action: reject
-        
-    #ingress
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: ingress-basic
-#         images: tsugunt/sample:v22
-#         manifests: |
-#          manifests/ingress/deployment.yml
-#          manifests/ingress/service.yml
-#          manifests/ingress/ingress.yml
-#         strategy: blue-green
-#         route-method: ingress
-#         action: reject
-
+#     - name: Create an issue
+#       run: |
+#         token=${{ secrets.GITHUB_TOKEN }}
+#         curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}",  "${{env.kube_ns}}"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
