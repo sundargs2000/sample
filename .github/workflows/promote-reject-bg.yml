@@ -4,13 +4,8 @@ on:
     
 name: promote-reject-bg
 jobs:
-  log:
-    runs-on: ubuntu-latest
-    steps:
-      - name: printing event
-        run: |
-          echo ${{github.event.label.name}}
   promote-reject:
+    if: github.event.issue.labels[1].name=='voting'
     runs-on: ubuntu-latest
     steps:
 
