@@ -18,17 +18,17 @@ jobs:
       id: setcontext
       
 #           service
-    - name: deployer
-      uses: sundargs2000/k8s-deploy@reviews
-      with:
-        namespace: smi-demo
-        images: tsugunt/example:v2
-        manifests: |
-          manifests/van/deployment.yml
-          manifests/van/service.yml
-        strategy: blue-green
-        route-method: service
-        action: reject
+#     - name: deployer
+#       uses: sundargs2000/k8s-deploy@reviews
+#       with:
+#         namespace: smi-demo
+#         images: tsugunt/example:v2
+#         manifests: |
+#           manifests/van/deployment.yml
+#           manifests/van/service.yml
+#         strategy: blue-green
+#         route-method: service
+#         action: reject
   
 #         #smi  
 #     - name: k8-deployer
@@ -42,19 +42,19 @@ jobs:
 #         route-method: smi
 #         action: reject
     
-#         #ingress
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: ingress-basic
-#         images: tsugunt/sample:v22
-#         manifests: |
-#          manifests/ingress/deployment.yml
-#          manifests/ingress/service.yml
-#          manifests/ingress/ingress.yml
-#         strategy: blue-green
-#         route-method: ingress
-#         action: deploy
+        #ingress
+    - name: deployer
+      uses: sundargs2000/k8s-deploy@reviews
+      with:
+        namespace: ingress-basic
+        images: tsugunt/sample:v22
+        manifests: |
+         manifests/ingress/deployment.yml
+         manifests/ingress/service.yml
+         manifests/ingress/ingress.yml
+        strategy: blue-green
+        route-method: ingress
+        action: deploy
 
 #     env:
 #       dock_image: tsugunt/example:v1
