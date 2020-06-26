@@ -40,7 +40,7 @@ jobs:
           pod.yml
         strategy: blue-green
         route-method: smi
-        action: reject
+        action: deploy
     
 #     #  ingress
 #     - name: deployer
