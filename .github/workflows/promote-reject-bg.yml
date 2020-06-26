@@ -5,7 +5,7 @@ on:
 name: promote-reject-bg
 jobs:
   promote-reject:
-    if: github.event.issue.labels[1].name=='voting'
+    if: github.event.issue.labels[2].name=='voting'
     runs-on: ubuntu-latest
     steps:
 
