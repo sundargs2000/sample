@@ -13,10 +13,7 @@ jobs:
   promote-reject:
     runs-on: ubuntu-latest
     steps:
-    - name: Printing promote
-      run: |
-        echo time to promote  
-        
+
     - name: checkout 
       uses: actions/checkout@v2
 
