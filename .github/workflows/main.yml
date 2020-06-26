@@ -9,7 +9,7 @@ jobs:
       dock_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
       kube_ns: voting
     steps:
-#
+
     - name: checkout 
       uses: actions/checkout@v2
 
