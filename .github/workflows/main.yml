@@ -35,12 +35,12 @@ jobs:
       uses: sundargs2000/k8s-deploy@reviews
       with:
         namespace: voting
-        images: mcr.microsoft.com/aks/samples/voting/analytics:1.1
+        images: mcr.microsoft.com/aks/samples/voting/analytics:1.0
         manifests: |
           pod.yml
         strategy: blue-green
         route-method: smi
-        action: promote
+        action: deploy
     
 #     #  ingress
 #     - name: deployer
