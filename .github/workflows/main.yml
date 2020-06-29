@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
+      deploy_image: tsugunt/sample:v1.4
       deploy_ns: voting
       deploy_manifest: pod.yml
       deploy_route: service
