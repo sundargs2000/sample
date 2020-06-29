@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Setting environment
       env:
-        the_labs: ${{github.event.issue.labels}}
+        the_labs: ${{github.event}}
       run: |
         echo "$the_labs" | grep image
       shell: bash
