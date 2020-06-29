@@ -18,29 +18,29 @@ jobs:
       id: setcontext
       
 #           service
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: smi-demo
-#         images: tsugunt/example:v2
-#         manifests: |
-#           manifests/van/deployment.yml
-#           manifests/van/service.yml
-#         strategy: blue-green
-#         route-method: service
-#         action: reject
-  
-#         smi  
-    - name: k8-deployer
+    - name: deployer
       uses: sundargs2000/k8s-deploy@reviews
       with:
-        namespace: voting
-        images: mcr.microsoft.com/aks/samples/voting/analytics:1.0
+        namespace: smi-demo
+        images: tsugunt/example:v2
         manifests: |
-          pod.yml
+          manifests/van/deployment.yml
+          manifests/van/service.yml
         strategy: blue-green
-        route-method: smi
-        action: promote
+        route-method: service
+        action: deploy
+  
+#         smi  
+#     - name: k8-deployer
+#       uses: sundargs2000/k8s-deploy@reviews
+#       with:
+#         namespace: voting
+#         images: mcr.microsoft.com/aks/samples/voting/analytics:1.0
+#         manifests: |
+#           pod.yml
+#         strategy: blue-green
+#         route-method: smi
+#         action: promote
     
 #     #  ingress
 #     - name: deployer
