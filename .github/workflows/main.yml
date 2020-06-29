@@ -10,7 +10,7 @@ jobs:
       deploy_image: mcr.microsoft.com/aks/samples/voting/analytics:1.1
       deploy_ns: voting
       deploy_manifest: pod.yml
-      deploy_route: smi
+      deploy_route: service
     
     steps:
     - name: checkout 
@@ -33,7 +33,7 @@ jobs:
           ${{env.deploy_manifest}}
         strategy: blue-green
         route-method: ${{env.deploy_route}}
-        action: deploy
+        action: reject
 
     - name: Create an issue
       run: |
