@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Setting environment
       run: |
-        echo "hello" | grep hell:
+        echo "hello" | grep hell
       shell: bash
         
 #     - name: checkout 
