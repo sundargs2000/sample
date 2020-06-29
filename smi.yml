@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: voting-analytics
-        image: mcr.microsoft.com/aks/samples/voting/analytics
+        image: tsugunt/mssample
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
