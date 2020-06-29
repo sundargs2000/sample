@@ -9,7 +9,7 @@ jobs:
     env:
       deploy_image: tsugunt/mssample:v1
       deploy_ns: voting
-      deploy_manifest: pod.yml
+      deploy_manifest: smi.yml
       deploy_route: smi
     
     steps:
