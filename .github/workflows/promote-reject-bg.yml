@@ -10,8 +10,7 @@ jobs:
     steps:
     - name: Setting environment
       run: |
-        api=$(curl https://api.github.com/repos/sundargs2000/sample/issues/44)
-        echo "$api"
+         echo "${{github.event.issue.url}}"
 #        echo "${{github.event.issue.labels}}[*]" | grep image
       shell: bash
         
