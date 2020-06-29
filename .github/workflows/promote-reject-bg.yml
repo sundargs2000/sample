@@ -12,6 +12,7 @@ jobs:
     - name: Setting environment
       run: |
         echo "hello" | grep hell:
+      shell: bash
         
 #     - name: checkout 
 #       uses: actions/checkout@v2
