@@ -7,17 +7,20 @@ jobs:
   promote-reject:
     runs-on: ubuntu-latest
     
+    env:
+      dp_image: none
+    
     steps:
     - name: Setting environment
       run: |
         api=$(curl ${{github.event.issue.url}})
-        image=$(echo "$api" | grep image | grep name | awk '{print $2}' | grep image |  cut -d'-' -f 2 | cut -d'"' -f 1 )
+        ${{env.dp_image}}=$(echo "$api" | grep image | grep name | awk '{print $2}' | grep image |  cut -d'-' -f 2 | cut -d'"' -f 1 )
 #        echo "${{github.event.issue.labels}}[*]" | grep image
       shell: bash
       
     - name: checking environment
       run: |
-        echo "$image"
+        echo "${{env.dp_image}}"
       shell: bash
         
 #     - name: checkout 
