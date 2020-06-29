@@ -6,9 +6,11 @@ name: promote-reject-bg
 jobs:
   promote-reject:
     runs-on: ubuntu-latest
-    
-    env:
-      dp_image: none
+#     env:
+#       deploy_image: none
+#       deploy_ns: none
+#       deploy_manifest: smi.yml
+#       deploy_route: smi
     
     steps:
     - name: Setting environment
