@@ -11,7 +11,7 @@ jobs:
       deploy_ns: voting
       deploy_manifest: pod.yml
       deploy_route: service
-      image: image:${{deploy_image}}
+      image: image:${{env.deploy_image}}
 
     steps:
     - name: checkout 
