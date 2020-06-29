@@ -7,11 +7,12 @@ jobs:
   promote-reject:
     runs-on: ubuntu-latest
     
-    
     steps:
     - name: Setting environment
+      env:
+        the_labs: ${{github.event.issue.labels}}
       run: |
-        echo "${{github.event.issue.labels}}" | grep image
+        echo "$the_labs" | grep image
       shell: bash
         
 #     - name: checkout 
