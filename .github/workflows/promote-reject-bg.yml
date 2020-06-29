@@ -9,10 +9,10 @@ jobs:
     
     
     steps:
-    - name: Create an issue
+    - name: Setting environment
       run: |
         image=$(echo "${{github.event}}" | grep image | grep name | awk '{print $2}' | grep image |  cut -d'-' -f 2 | cut -d'"' -f 1 )
-        echo "$image"
+        echo hello
         
 #     - name: checkout 
 #       uses: actions/checkout@v2
