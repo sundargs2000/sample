@@ -32,7 +32,7 @@ jobs:
           ${{env.deploy_manifest}}
         strategy: blue-green
         route-method: ${{env.deploy_route}}
-        action: deploy
+        action: reject
 
     - name: Create an issue
       run: |
