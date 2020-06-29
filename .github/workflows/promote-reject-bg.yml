@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Setting environment
       run: |
-        echo ${{github.event.issue.labels}} | grep image
+        echo "${{github.event.issue.labels}}" | grep image
       shell: bash
         
 #     - name: checkout 
