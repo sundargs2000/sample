@@ -12,7 +12,7 @@ jobs:
       run: |
         api=$(curl ${{github.event.issue.url}})
         image=$(echo "$api" | grep image | grep name | awk '{print $2}' | grep image |  cut -d'-' -f 2 | cut -d'"' -f 1 )
-        echo "$images"
+        echo "$image"
 #        echo "${{github.event.issue.labels}}[*]" | grep image
       shell: bash
         
