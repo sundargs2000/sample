@@ -1,38 +1,38 @@
-# name: CI
-# on:
-#   [push]
+name: CI
+on:
+  [push]
 
-# jobs:
-#   deploy: 
-#     runs-on: ubuntu-latest
+jobs:
+  deploy: 
+    runs-on: ubuntu-latest
     
-#     env:
-#       deploy_image: tsugunt/mssample:v2
-#       deploy_ns: voting
-#       deploy_manifest: smi.yml
-#       deploy_route: smi
+    env:
+      deploy_image: tsugunt/mssample:v2
+      deploy_ns: voting
+      deploy_manifest: smi.yml
+      deploy_route: smi
     
-#     steps:
-#     - name: checkout 
-#       uses: actions/checkout@v2
+    steps:
+    - name: checkout 
+      uses: actions/checkout@v2
 
-#     - name: k8-setup
-#       uses: azure/k8s-set-context@v1
-#       with:
-#         method: kubeconfig
-#         kubeconfig: ${{ secrets.KUBE_CONFIG }} 
-#       id: setcontext
+    - name: k8-setup
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} 
+      id: setcontext
       
-#     - name: k8-deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: ${{env.deploy_ns}}
-#         images: ${{env.deploy_image}}
-#         manifests: |
-#           ${{env.deploy_manifest}}
-#         strategy: blue-green
-#         route-method: ${{env.deploy_route}}
-#         action: deploy
+    - name: k8-deployer
+      uses: sundargs2000/k8s-deploy@reviews
+      with:
+        namespace: ${{env.deploy_ns}}
+        images: ${{env.deploy_image}}
+        manifests: |
+          ${{env.deploy_manifest}}
+        strategy: blue-green
+        route-method: ${{env.deploy_route}}
+        action: reject
 
 #     - name: Create an issue
 #       run: |
