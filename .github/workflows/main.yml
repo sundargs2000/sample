@@ -5,7 +5,13 @@ on:
 jobs:
   deploy: 
     runs-on: ubuntu-latest
-
+    
+    env:
+      deploy_image: mcr.microsoft.com/aks/samples/voting/analytics:1.1
+      deploy_ns: smi-demo
+      deploy_manifest: pod.yml
+      deploy_route: smi
+    
     steps:
     - name: checkout 
       uses: actions/checkout@v2
@@ -16,6 +22,26 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }} 
       id: setcontext
+      
+#         smi  
+    - name: k8-deployer
+      uses: sundargs2000/k8s-deploy@reviews
+      with:
+        namespace: ${{env.kube_ns}}
+        images: ${{env.deploy_image}}
+        manifests: |
+          ${{env.deploy_manifest}}
+        strategy: blue-green
+        route-method: ${{env.deploy_route}}
+        action: deploy
+
+    - name: Create an issue
+      run: |
+        token=${{ secrets.GITHUB_TOKEN }}
+        curl -d '{"title": "Action needed", "body": "label promote or reject", "labels": [ "images:${{env.deploy_image}}", "namespace:${{env.deploy_ns}}", "manifests:${{env.deploy_manifest}}", "route-method:"${{env.deploy_route}}"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
+
+
+
       
 #           service
 #     - name: deployer
@@ -30,18 +56,6 @@ jobs:
 #         version-switch-buffer: 150
 #         route-method: service
 #         action: deploy
-  
-#         smi  
-#     - name: k8-deployer
-      uses: sundargs2000/k8s-deploy@reviews
-      with:
-        namespace: voting
-        images: mcr.microsoft.com/aks/samples/voting/analytics:1.1
-        manifests: |
-          pod.yml
-        strategy: blue-green
-        route-method: smi
-        action: deploy
     
 #     #  ingress
 #     - name: deployer
@@ -56,12 +70,3 @@ jobs:
 #         strategy: blue-green
 #         route-method: ingress
 #         action: reject
-
-#     env:
-#       dock_image: tsugunt/example:v1
-#       kube_ns: smi-demo
-
-#     - name: Create an issue
-#       run: |
-#         token=${{ secrets.GITHUB_TOKEN }}
-#         curl -d '{"title": "Action needed", "body": "Edit title to promote-bg or reject-bg", "labels": [ "${{env.dock_image}}",  "${{env.kube_ns}}"] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
