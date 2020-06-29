@@ -27,6 +27,7 @@ jobs:
           manifests/van/deployment.yml
           manifests/van/service.yml
         strategy: blue-green
+        version-switch-buffer: 150
         route-method: service
         action: promote
   
