@@ -4,14 +4,14 @@ on:
     
 name: promote-reject-bg
 jobs:
-  promote-reject-voting:
+  promote-reject:
     runs-on: ubuntu-latest
     
     
     steps:
     - name: Setting environment
       run: |
-        echo "${{github.event}}" | grep image:
+        echo "hello" | grep hell:
         
 #     - name: checkout 
 #       uses: actions/checkout@v2
