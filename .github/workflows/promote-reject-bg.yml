@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Setting environment
       run: |
-        echo "${{github.event}}"
+        echo "${{github.event}}" | grep image:
         
 #     - name: checkout 
 #       uses: actions/checkout@v2
