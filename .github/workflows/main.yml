@@ -37,7 +37,7 @@ jobs:
 
     - name: Create an issue
       env:
-        image: image:${{env.deploy_image}}
+        image: image-${{env.deploy_image}}
       run: |
         token=${{ secrets.GITHUB_TOKEN }}
         curl -d '{"title": "Action needed", "body": "label promote or reject", "labels": [  "${{image}}", "namespace: ${{env.deploy_ns}}", "manifest: ${{env.deploy_manifest}}", "route ${{env.deploy_route}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
