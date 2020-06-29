@@ -6,46 +6,57 @@ name: promote-reject-bg
 jobs:
   promote-reject:
     runs-on: ubuntu-latest
-#     env:
-#       deploy_image: none
-#       deploy_ns: none
-#       deploy_manifest: smi.yml
-#       deploy_route: smi
-    
+
     steps:
     - name: Setting environment
       run: |
         api=$(curl ${{github.event.issue.url}})
+        
         image=$(echo "$api" | grep image | grep name | awk '{print $2}' | grep image |  cut -d'-' -f 2 | cut -d'"' -f 1 )
         echo "$image"
-        echo "::set-env name=dp_image::$image"
-#        echo "${{github.event.issue.labels}}[*]" | grep image
+        echo "::set-env name=deploy_image::$image"
+        
+        namespace=$(echo "$api" | grep kube_ns | grep name | awk '{print $2}' | grep kube_ns |  cut -d':' -f 2 | cut -d'"' -f 1 )
+        echo "$namespace"
+        echo "::set-env name=deploy_ns::$namespace"
+        
+        manifest=$(echo "$api" | grep manifest | grep name | awk '{print $2}' | grep manifest |  cut -d':' -f 2 | cut -d'"' -f 1 )
+        echo "$manifest"
+        echo "::set-env name=deploy_manifest::$manifest"
+        
+        route=$(echo "$api" | grep route | grep name | awk '{print $2}' | grep route |  cut -d':' -f 2 | cut -d'"' -f 1 )
+        echo "$route"
+        echo "::set-env name=deploy_route::$route"
+        
       shell: bash
       
     - name: checking environment
       run: |
-        echo "${{env.dp_image}}"
+        echo "${{env.deploy_image}}"
+        echo "${{env.deploy_ns}}"
+        echo "${{env.deploy_manifest}}"
+        echo "${{env.deploy_route}}"
       shell: bash
         
-#     - name: checkout 
-#       uses: actions/checkout@v2
+    - name: checkout 
+      uses: actions/checkout@v2
 
-#     - name: k8-setup
-#       uses: azure/k8s-set-context@v1
-#       with:
-#         method: kubeconfig
-#         kubeconfig: ${{ secrets.KUBE_CONFIG }} 
-#       id: setcontext
+    - name: k8-setup
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }} 
+      id: setcontext
     
-#     - name: k8-deployer-${{github.event.label.name}}
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: voting
-#         images: ${{github.event.issue.labels[0].name}}
-#         manifests: |
-#           pod.yml
-#         strategy: blue-green
-#         route-method: smi
-#         action: ${{github.event.label.name}}
+    - name: k8-deployer-${{github.event.label.name}}
+      uses: sundargs2000/k8s-deploy@reviews
+      with:
+        namespace: ${{env.deploy_ns}}
+        images: ${{env.deploy_image}}
+        manifests: |
+          ${{env.deploy_manifest}}
+        strategy: blue-green
+        route-method: ${{env.deploy_route}}
+        action: ${{github.event.label.name}}
   
 
