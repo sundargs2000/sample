@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: mcr.microsoft.com/aks/samples/voting/analytics:1.1
+      deploy_image: mcr.microsoft.com/aks/samples/voting/analytics:1.0
       deploy_ns: voting
       deploy_manifest: pod.yml
       deploy_route: service
@@ -36,8 +36,6 @@ jobs:
         action: reject
 
     - name: Create an issue
-      env:
-        image: image-${{env.deploy_image}}
       run: |
         token=${{ secrets.GITHUB_TOKEN }}
         curl -d '{"title": "Action needed", "body": "label promote or reject", "labels": [ "namespace:${{env.deploy_ns}}", "manifest:${{env.deploy_manifest}}", "route:${{env.deploy_route}}", "image:${{env.deploy_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
