@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/example:v2
-      deploy_ns: smi-demo
-      deploy_manifest: service.yml
-      deploy_route: service
+      deploy_image: tsugunt/sample:v22
+      deploy_ns: ingress-basic
+      deploy_manifest: ingress.yml
+      deploy_route: ingress
     
     steps:
     - name: checkout 
@@ -38,31 +38,3 @@ jobs:
       run: |
         token=${{ secrets.GITHUB_TOKEN }}
         curl -d '{"title": "Action needed", "body": "label promote or reject", "labels": [ "kube_ns:${{env.deploy_ns}}", "manifest:${{env.deploy_manifest}}", "route:${{env.deploy_route}}", "image-${{env.deploy_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
-      
-#           service
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: smi-demo
-#         images: tsugunt/example:v1
-#         manifests: |
-#           manifests/van/deployment.yml
-#           manifests/van/service.yml
-#         strategy: blue-green
-#         version-switch-buffer: 150
-#         route-method: service
-#         action: deploy
-    
-#     #  ingress
-#     - name: deployer
-#       uses: sundargs2000/k8s-deploy@reviews
-#       with:
-#         namespace: ingress-basic
-#         images: tsugunt/sample:v22
-#         manifests: |
-#          manifests/ingress/deployment.yml
-#          manifests/ingress/service.yml
-#          manifests/ingress/ingress.yml
-#         strategy: blue-green
-#         route-method: ingress
-#         action: reject
