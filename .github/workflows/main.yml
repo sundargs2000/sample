@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/sample:v2.4
+      deploy_image: tsugunt/sample:v22
       deploy_ns: sundar-temp
       deploy_manifest: ingress.yml
 #       deploy_route: smi
@@ -32,7 +32,7 @@ jobs:
           ${{env.deploy_manifest}}
         strategy: canary
 #         route-method: ${{env.deploy_route}}
-        action: promote
+        action: deploy
         percentage: 25
 
 #     - name: Create an issue
