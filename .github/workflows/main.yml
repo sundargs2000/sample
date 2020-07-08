@@ -9,7 +9,7 @@ jobs:
     env:
       deploy_image: tsugunt/example:v2
       deploy_ns: smi-demo
-      deploy_manifest: smi.yml
+      deploy_manifest: service.yml
       deploy_route: service
     
     steps:
