@@ -10,7 +10,7 @@ jobs:
       deploy_image: tsugunt/example:v1
       deploy_ns: smi-demo
       deploy_manifest: service.yml
-      deploy_route: service
+      deploy_route: smi
     
     steps:
     - name: checkout 
