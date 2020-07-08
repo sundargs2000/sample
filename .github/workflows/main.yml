@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/sample:v22
+      deploy_image: tsugunt/sample:v2.4
       deploy_ns: sundar-temp
       deploy_manifest: ingress.yml
-      deploy_route: smi
+#       deploy_route: smi
     
     steps:
     - name: checkout 
@@ -30,9 +30,9 @@ jobs:
         images: ${{env.deploy_image}}
         manifests: |
           ${{env.deploy_manifest}}
-#         strategy: blue-green
+        strategy: canary
 #         route-method: ${{env.deploy_route}}
-#         action: deploy
+        action: deploy
 
 #     - name: Create an issue
 #       run: |
