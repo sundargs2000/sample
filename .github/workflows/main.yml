@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/mssample:v2
-      deploy_ns: voting
-      deploy_manifest: smi.yml
-      deploy_route: smi
+      deploy_image: tsugunt/sample:v1
+      deploy_ns: sundar-temp
+      deploy_manifest: ingress.yml
+#       deploy_route: smi
     
     steps:
     - name: checkout 
@@ -30,11 +30,12 @@ jobs:
         images: ${{env.deploy_image}}
         manifests: |
           ${{env.deploy_manifest}}
-        strategy: blue-green
-        route-method: ${{env.deploy_route}}
+        strategy: canary
+#         route-method: ${{env.deploy_route}}
         action: deploy
-
-    - name: Create an issue
-      run: |
-        token=${{ secrets.GITHUB_TOKEN }}
-        curl -d '{"title": "Action needed", "body": "label promote or reject", "labels": [ "kube_ns:${{env.deploy_ns}}", "manifest:${{env.deploy_manifest}}", "route:${{env.deploy_route}}", "image-${{env.deploy_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
+        percentage: 25
+        
+#     - name: Create an issue
+#       run: |
+#         token=${{ secrets.GITHUB_TOKEN }}
+#         curl -d '{"title": "Action needed", "body": "label promote or reject", "labels": [ "kube_ns:${{env.deploy_ns}}", "manifest:${{env.deploy_manifest}}", "route:${{env.deploy_route}}", "image-${{env.deploy_image}}" ] }' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -H "Accept: application/vnd.github.antiope-preview+json" https://api.github.com/repos/sundargs2000/sample/issues
