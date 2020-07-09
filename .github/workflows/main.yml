@@ -8,7 +8,7 @@ jobs:
     
     env:
       deploy_image: tsugunt/sample:v1
-      deploy_ns: sundar-temp
+      deploy_ns: temp
       deploy_manifest: ingress.yml
 #       deploy_route: smi
     
@@ -30,10 +30,10 @@ jobs:
         images: ${{env.deploy_image}}
         manifests: |
           ${{env.deploy_manifest}}
-        strategy: canary
+#         strategy: canary
 #         route-method: ${{env.deploy_route}}
-        action: promote
-        percentage: 25
+#         action: deploy
+#         percentage: 25
         
 #     - name: Create an issue
 #       run: |
