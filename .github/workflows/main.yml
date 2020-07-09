@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/example:v1
+      deploy_image: tsugunt/example:v2
       deploy_ns: smi-demo
       deploy_manifest: service.yml
-      deploy_route: smi
+      deploy_route: service
     
     steps:
     - name: checkout 
