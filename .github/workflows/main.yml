@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/mssample:v1
-      deploy_ns: voting
-      deploy_manifest: smi.yml
-      deploy_route: smi
+      deploy_image: tsugunt/sample:v2.4
+      deploy_ns: temp
+      deploy_manifest: ingress.yml
+      deploy_route: service
     
     steps:
     - name: checkout 
