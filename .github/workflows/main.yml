@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/sample:v2.4
-      deploy_ns: ingress-basic
-      deploy_manifest: ingress.yml
-      deploy_route: ingress
+      deploy_image: tsugunt/example:v1
+      deploy_ns: smi-demo
+      deploy_manifest: service.yml
+      deploy_route: service
     
     steps:
     - name: checkout 
