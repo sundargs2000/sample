@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/sample:v1
+      deploy_image: tsugunt/sample:v2
       deploy_ns: temp
       deploy_manifest: ingress.yml
 #       deploy_route: smi
