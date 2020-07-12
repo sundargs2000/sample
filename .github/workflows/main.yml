@@ -32,7 +32,7 @@ jobs:
           ${{env.deploy_manifest}}
         strategy: canary
 #         route-method: ${{env.deploy_route}}
-        action: deploy
+        action: promote
         percentage: 25
                 
 #     - name: Create an issue
