@@ -30,7 +30,7 @@ jobs:
         images: ${{env.deploy_image}}
         manifests: |
           ${{env.deploy_manifest}}
-        strategy: canary
+        strategy: reject
 #         route-method: ${{env.deploy_route}}
         action: deploy
         percentage: 25
