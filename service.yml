@@ -26,6 +26,8 @@ kind: Service
 metadata:
   name: my-service
 spec:
+  selector:
+    random: random
   ports:
     - protocol: TCP
       port: 80
