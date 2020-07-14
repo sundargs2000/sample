@@ -55,17 +55,17 @@ data:
     color.bad=yellow
     allow.textmode=true
     how.nice.to.look=fairlyNice
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: reviews
-  labels:
-    app: reviews
-spec:
-  ports:
-  - port: 9080
-    name: http
-  selector:
-    app: reviews
----
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: reviews
+#   labels:
+#     app: reviews
+# spec:
+#   ports:
+#   - port: 9080
+#     name: http
+#   selector:
+#     app: reviews
+# ---
