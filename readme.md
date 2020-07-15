@@ -21,10 +21,11 @@ Following are the key capabilities of this action:
 	 - **Canary strategy**: Choosing canary strategy with this action leads to creation of workloads suffixed with '-baseline' and '-canary'. There are two methods of traffic splitting supported in the action:
 	    - **Service Mesh Interface**: Service Mesh Interface abstraction allows for plug-and-play configuration with service mesh providers such as Linkerd and Istio. Meanwhile, this action takes away the hard work of mapping SMI's TrafficSplit objects to the stable, baseline and canary services during the lifecycle of the deployment strategy. Service mesh based canary deployments using this action are more accurate as service mesh providers enable granular percentage traffic split (via service registry and sidecar containers injected into pods alongside application containers).
 	    - **Only Kubernetes (no service mesh)**: In the absence of service mesh, while it may not be possible to achieve exact percentage split at the request level, it is still possible to perform canary deployments by deploying -baseline and -canary workload variants next to the stable variant. The service routes requests to pods of all three workload variants as the selector-label constraints are met (KubernetesManifest will honor these when creating -baseline and -canary variants). This achieves the intended effect of routing only a portion of total requests to the canary.
-	- **Blue-Green strategy**: Choosing blue-green strategy with this action leads to creation of workloads suffixed with '-green'. There are three route-methods of supported in the action:
+	- **Blue-Green strategy**: Choosing blue-green strategy with this action leads to creation of workloads suffixed with '-green'. There are three route-methods supported in the action:
 	    - **Service route-method**: The services are configured to target the green deployments. The service is only configured if it targets a workload in the given manifests.
 	    - **Ingress route-method**: Along with deployments, new services are created with '-green' suffix (only if they are targeting a workload), and the ingresses are in turn updated to target the new services.
 	    - **SMI route-method**: A new [TrafficSplit](https://github.com/servicemeshinterface/smi-spec/blob/master/apis/traffic-split/v1alpha3/traffic-split.md) object for each service which is targeting a workload, and the TrafficSplit object is updated to target new deployments. This works only if SMI is set up in the cluster.
+	    
 	- Traffic is routed to the new workloads only after the input time of `version-switch-buffer` has passed. `promote` action   creates workloads and services with new configurations but without any suffix. `reject` action routes traffic back to the old workloads and deletes the '-green' workloads.
 
 
@@ -72,7 +73,7 @@ Following are the key capabilities of this action:
   </tr>
    <tr>
     <td><code>route-method</code><br/>Route Method</td>
-    <td>(Optional) Default value: service. Acceptable values: service/ingress/smi. Promote or reject actions are used to promote or reject canary deployments. Sample YAML snippets are provided below for guidance on how to use the same.</td>
+    <td>(Optional; Relevant only if strategy==blue-green) Default value: service. Acceptable values: service/ingress/smi. Promote or reject actions are used to promote or reject canary deployments. Sample YAML snippets are provided below for guidance on how to use the same.</td>
   </tr>
   <tr>
     <td><code>version-switch-buffer</code><br/>Version Switch Buffer</td>
@@ -161,7 +162,6 @@ To promote/reject the canary created by the above snippet, the following YAML sn
     traffic-split-method: smi
     percentage: 20
     baseline-and-canary-replicas: 1
-```
 
 To promote/reject the canary created by the above snippet, the following YAML snippet could be used:
 
@@ -179,6 +179,43 @@ To promote/reject the canary created by the above snippet, the following YAML sn
     strategy: canary
     traffic-split-method: smi
     action: reject # substitute reject if you want to reject
+```
+### Deployment Strategies - Blue-Green deployment with different route methods
+
+```yaml
+- uses: Azure/k8s-deploy@v1
+  with:
+    namespace: 'myapp'
+    images: 'contoso.azurecr.io/myapp:${{ event.run_id }}'
+    imagepullsecrets: |
+      image-pull-secret1
+      image-pull-secret2
+    manifests: |
+        deployment.yaml
+        service.yaml
+        ingress.yml
+    strategy: blue-green
+    route-method: ingress # substitute with service/smi as per need
+    version-switch-buffer: 15
+```
+
+To promote/reject the green workload created by the above snippet, the following YAML snippet could be used:
+
+```yaml
+- uses: Azure/k8s-deploy@v1
+  with:
+    namespace: 'myapp'
+    images: 'contoso.azurecr.io/myapp:${{ event.run_id }}'
+    imagepullsecrets: |
+      image-pull-secret1
+      image-pull-secret2
+    manifests: |
+        deployment.yaml
+        service.yaml
+        ingress-yml
+    strategy: blue-green
+    strategy: ingress # should be the same as the value when action was deploy
+    action: promote # substitute reject if you want to reject
 ```
 
 ## End to end workflows
