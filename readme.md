@@ -73,7 +73,10 @@ Following are the key capabilities of this action:
   </tr>
    <tr>
     <td><code>route-method</code><br/>Route Method</td>
-    <td>(Optional; Relevant only if strategy==blue-green) Default value: service. Acceptable values: service/ingress/smi. Promote or reject actions are used to promote or reject canary deployments. Sample YAML snippets are provided below for guidance on how to use the same.</td>
+    <td>(Optional; Relevant only if strategy==blue-green) Default value: service. Acceptable values: service/ingress/smi. Traffic is routed based on the input here.
+    <br>Service: Service selector labels are updated to make it target '-green' workloads.
+    <br>Ingress: Ingress backends are updated to make it target the new '-green' services which in turn would target '-green' deployments.
+    <br>SMI: A <a href="https://github.com/servicemeshinterface/smi-spec/blob/master/apis/traffic-split/v1alpha3/traffic-split.md" data-raw-source="TrafficSplit](https://github.com/deislabs/smi-spec/blob/master/traffic-split.md)">TrafficSplit</a>  object is created to route traffic to new workloads.</td>
   </tr>
   <tr>
     <td><code>version-switch-buffer</code><br/>Version Switch Buffer</td>
