@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/example:v2
+      deploy_image: tsugunt/sample:v2.4
       deploy_ns: smi-demo
-      deploy_manifest: service.yml
+      deploy_manifest: ingress.yml
       deploy_route: service
     
     steps:
@@ -30,9 +30,10 @@ jobs:
         images: ${{env.deploy_image}}
         manifests: |
           ${{env.deploy_manifest}}
-#         strategy: blue-green
+        strategy: canary
 #         route-method: ${{env.deploy_route}}
-#         action: promote
+        action: deploy
+        percentage: 25
                 
 #     - name: Create an issue
 #       run: |
