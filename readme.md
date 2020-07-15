@@ -201,7 +201,7 @@ To promote/reject the canary created by the above snippet, the following YAML sn
     version-switch-buffer: 15
 ```
 
-To promote/reject the green workload created by the above snippet, the following YAML snippet could be used:
+### **To promote/reject the green workload created by the above snippet, the following YAML snippet could be used:**
 
 ```yaml
 - uses: Azure/k8s-deploy@v1
