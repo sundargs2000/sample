@@ -61,7 +61,7 @@ Following are the key capabilities of this action:
   </tr>
   <tr>
     <td><code>traffic-split-method</code><br/>Traffic split method</td>
-    <td>(Optional) Acceptable values: pod/smi; Default value: pod <br>SMI: Percentage traffic split is done at request level using service mesh. Service mesh has to be setup by cluster admin. Orchestration of <a href="https://github.com/deislabs/smi-spec/blob/master/traffic-split.md" data-raw-source="TrafficSplit](https://github.com/deislabs/smi-spec/blob/master/traffic-split.md)">TrafficSplit</a> objects of SMI is handled by this action. <br>Pod: Percentage split not possible at request level in the absence of service mesh. So the percentage input is used to calculate the replicas for baseline and canary as a percentage of replicas specified in the input manifests for the stable variant.</td>
+    <td>(Optional) Acceptable values: pod/smi; Default value: pod <br>SMI: Percentage traffic split is done at request level using service mesh. Service mesh has to be setup by cluster admin. Orchestration of <a href="https://github.com/servicemeshinterface/smi-spec/blob/master/apis/traffic-split/v1alpha3/traffic-split.md" data-raw-source="TrafficSplit](https://github.com/deislabs/smi-spec/blob/master/traffic-split.md)">TrafficSplit</a> objects of SMI is handled by this action. <br>Pod: Percentage split not possible at request level in the absence of service mesh. So the percentage input is used to calculate the replicas for baseline and canary as a percentage of replicas specified in the input manifests for the stable variant.</td>
   </tr>
   <tr>
     <td><code>percentage</code><br/>Percentage</td>
@@ -165,9 +165,8 @@ To promote/reject the canary created by the above snippet, the following YAML sn
     traffic-split-method: smi
     percentage: 20
     baseline-and-canary-replicas: 1
-
-To promote/reject the canary created by the above snippet, the following YAML snippet could be used:
-
+```
+### **To promote/reject the canary created by the above snippet, the following YAML snippet could be used:**
 ```yaml
 - uses: Azure/k8s-deploy@v1
   with:
