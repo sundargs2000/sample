@@ -24,6 +24,18 @@ spec:
 apiVersion: v1 
 kind: Service 
 metadata: 
+  name: unrouted-service
+spec: 
+  selector: 
+    app: random
+  ports: 
+  - protocol: TCP 
+    port: 80 
+    targetPort: 8888
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
   name: sample-service
 spec: 
   selector: 
@@ -46,7 +58,7 @@ spec:
           serviceName: sample-service
           servicePort: 80
       - backend:
-          serviceName: my-service
+          serviceName: unrouted-service
           servicePort: 80
 ---
 apiVersion: v1
