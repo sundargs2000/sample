@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      deploy_image: tsugunt/example:v2
+      deploy_image: tsugunt/example:v1
       deploy_ns: smi-demo
       deploy_manifest: service.yml
       deploy_route: service
@@ -32,7 +32,7 @@ jobs:
           ${{env.deploy_manifest}}
         strategy: blue-green
         route-method: ${{env.deploy_route}}
-        action: promote
+        action: deploy
                 
 #     - name: Create an issue
 #       run: |
