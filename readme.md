@@ -24,7 +24,7 @@ Following are the key capabilities of this action:
 	- **Blue-Green strategy**: Choosing blue-green strategy with this action leads to creation of workloads suffixed with '-green'. There are three route-methods of supported in the action:
 	    - **Service route-method**: The services are configured to target the green deployments. The service is only configured if it targets a workload in the given manifests.
 	    - **Ingress route-method**: Along with deployments, new services are created with '-green' suffix (only if they are targeting a workload), and the ingresses are in turn updated to target the new services.
-	    - **SMI route-method**: A new TrafficSplit object for each service which is targeting a workload, and the TrafficSplit object is updated to target new deployments. This works only if SMI is set up in the cluster.
+	    - **SMI route-method**: A new [TrafficSplit](https://github.com/servicemeshinterface/smi-spec/blob/master/apis/traffic-split/v1alpha3/traffic-split.md) object for each service which is targeting a workload, and the TrafficSplit object is updated to target new deployments. This works only if SMI is set up in the cluster.
 	- Traffic is routed to the new workloads only after the input time of `version-switch-buffer` has passed. `promote` action   creates workloads and services with new configurations but without any suffix. `reject` action routes traffic back to the old workloads and deletes the '-green' workloads.
 
 
@@ -56,7 +56,7 @@ Following are the key capabilities of this action:
   </tr>
   <tr>
     <td><code>strategy</code><br/>Strategy</td>
-    <td>(Optional) Deployment strategy to be used while applying manifest files on the cluster. Acceptable values: none/canary. none - No deployment strategy is used when deploying. canary - Canary deployment strategy is used when deploying to the cluster</td>
+    <td>(Optional) Deployment strategy to be used while applying manifest files on the cluster. Acceptable values: none/canary/blue-green. none - No deployment strategy is used when deploying. canary - Canary deployment strategy is used when deploying to the cluster. blue-green - Blue-Green deployment strategy is used when deploying to cluster.</td>
   </tr>
   <tr>
     <td><code>traffic-split-method</code><br/>Traffic split method</td>
@@ -70,9 +70,17 @@ Following are the key capabilities of this action:
     <td><code>baseline-and-canary-replicas</code><br/>Baseline and canary replicas</td>
     <td>(Optional; Relevant only if trafficSplitMethod ==  smi) When trafficSplitMethod == smi, as percentage traffic split is controlled in the service mesh plane, the actual number of replicas for canary and baseline variants could be controlled independently of the traffic split. For example, assume that the input Deployment manifest desired 30 replicas to be used for stable and that the following inputs were specified for the action - <br>&nbsp;&nbsp;&nbsp;&nbsp;strategy: canary<br>&nbsp;&nbsp;&nbsp;&nbsp;trafficSplitMethod: smi<br>&nbsp;&nbsp;&nbsp;&nbsp;percentage: 20<br>&nbsp;&nbsp;&nbsp;&nbsp;baselineAndCanaryReplicas: 1<br> In this case, stable variant will receive 80% traffic while baseline and canary variants will receive 10% each (20% split equally between baseline and canary). However, instead of creating baseline and canary with 3 replicas, the explicit count of baseline and canary replicas is honored. That is, only 1 replica each is created for baseline and canary variants.</td>
   </tr>
+   <tr>
+    <td><code>route-method</code><br/>Route Method</td>
+    <td>(Optional) Default value: service. Acceptable values: service/ingress/smi. Promote or reject actions are used to promote or reject canary deployments. Sample YAML snippets are provided below for guidance on how to use the same.</td>
+  </tr>
+  <tr>
+    <td><code>version-switch-buffer</code><br/>Version Switch Buffer</td>
+    <td>(Optional; Relevant only if strategy==blue-green and action == deploy) Default value: 0. Acceptable values: 1-300. Waits for the given input in minutes before routing traffic to '-green' workloads.</td>
+  </tr>
   <tr>
     <td><code>action</code><br/>Action</td>
-    <td>(Required) Default value: deploy. Acceptable values: deploy/promote/reject. Promote or reject actions are used to promote or reject canary deployments. Sample YAML snippets are provided below for guidance on how to use the same.</td>
+    <td>(Required) Default value: deploy. Acceptable values: deploy/promote/reject. Promote or reject actions are used to promote or reject canary/blue-green deployments. Sample YAML snippets are provided below for guidance on how to use the same.</td>
   </tr>
   <tr>
     <td><code>kubectl-version</code><br/>Kubectl version</td>
