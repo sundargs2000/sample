@@ -24,7 +24,7 @@ jobs:
       id: setcontext
       
     - name: k8-deployer-${{env.deploy_route}}
-      uses: sundargs2000/k8s-deploy@reviews
+      uses: sundargs2000/k8s-deploy@new-test
       with:
         namespace: ${{env.deploy_ns}}
         images: ${{env.deploy_image}}
