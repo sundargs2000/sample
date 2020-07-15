@@ -131,7 +131,7 @@ Following are the key capabilities of this action:
     percentage: 20
 ```
 
-To promote/reject the canary created by the above snippet, the following YAML snippet could be used:
+### To promote/reject the canary created by the above snippet, the following YAML snippet could be used:
 
 ```yaml
 - uses: Azure/k8s-deploy@v1
@@ -166,7 +166,7 @@ To promote/reject the canary created by the above snippet, the following YAML sn
     percentage: 20
     baseline-and-canary-replicas: 1
 ```
-### **To promote/reject the canary created by the above snippet, the following YAML snippet could be used:**
+### To promote/reject the canary created by the above snippet, the following YAML snippet could be used:
 ```yaml
 - uses: Azure/k8s-deploy@v1
   with:
