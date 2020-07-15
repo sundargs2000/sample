@@ -30,6 +30,8 @@ jobs:
         images: ${{env.deploy_image}}
         manifests: |
           ${{env.deploy_manifest}}
+          
+          
 #         strategy: blue-green
 #         route-method: ${{env.deploy_route}}
 #         action: reject
